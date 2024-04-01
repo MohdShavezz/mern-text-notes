@@ -1,0 +1,45 @@
+import { useReducer } from "react";
+
+function App() {
+
+  const initialData=[{
+    id:Date.now(),
+    name:'shsvez',
+    age:21
+  }]
+  const reducer =(state,action)=>{
+    switch (action.type) {
+      case 'add':
+        return [...state,action.payload]
+      case 'remove':
+        return state.filter(e=>e.id!==action.payload.id)
+    
+      default:
+        break;
+    }
+  }
+  const [state, dispatch] = useReducer(reducer,initialData)
+
+  return (
+    <>
+    {
+      state.map((ele,ind)=>(
+      <div key={ind} >
+        <p>{ele.name} is {ele.age}</p>
+        <button onClick={()=>dispatch({type:'add',payload:{
+           id:Date.now(),
+           name:'ansari',
+           age:22
+        }})}>Add</button>
+        <button onClick={()=>dispatch({type:'remove',payload:{
+           id:ele.id
+        }})}>Remove</button>
+      </div>
+
+      ))
+    }
+    </>
+  );
+}
+
+export default App;

@@ -1,0 +1,26 @@
+import React, { createContext, useContext, useState } from "react";
+
+
+interface CounterContextValue{
+    data:number,
+    setData:(num:number)=>void
+}
+interface CounterContextProps{
+    children:React.ReactNode
+}
+ const CounterContext=createContext<null | CounterContextValue>(null)
+
+ export const ContextProvider:React.FC<CounterContextProps> = (props) => {
+    const [data,setData]=useState<number>(1)
+    return (
+    <CounterContext.Provider value={{
+        data,setData
+    }}>
+        {props.children}
+    </CounterContext.Provider>
+    )
+ }
+
+ export const useCounter=()=>{
+    return useContext(CounterContext)
+ }

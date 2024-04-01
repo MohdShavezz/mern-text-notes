@@ -1,0 +1,83 @@
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import "./App.css";
+
+function App() {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      age: "",
+    },
+    validationSchema:Yup.object({
+      name:Yup.string().required().max(8),
+      email: Yup.string().email().required(),
+      password:Yup.string()
+      .required('Please Enter your password')
+      .matches(
+        "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$",
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      ),
+      age: Yup.number().min(18).max(24).required(),
+    })
+    ,
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+  console.log(formik.errors)
+  return (
+    <>
+      <form onSubmit={formik.handleSubmit} style={{display:'flex',flexDirection:'column'}}>
+        <label htmlFor="Name">Name</label>
+        <input
+          id="Name"
+          name="name"
+          type="text"
+          onChange={formik.handleChange}
+          value={formik.values.name}
+          onBlur={formik.handleBlur} 
+        />
+        {formik.touched.name && formik.errors.name?<p style={{color:"red"}}>{formik.errors.name}</p>:null}
+
+        <label htmlFor="Age">Age</label>
+        <input
+          id="Age"
+          name="age"
+          type="number"
+          onChange={formik.handleChange}
+          value={formik.values.age} 
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.age && formik.errors.age?<p style={{color:"red"}}>{formik.errors.age}</p>:null}
+
+        <label htmlFor="Email">Email</label>
+        <input
+          id="Email"
+          name="email"
+          type="email"
+          onChange={formik.handleChange}
+          value={formik.values.email} 
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.email && formik.errors.email?<p style={{color:"red"}}>{formik.errors.email}</p>:null}
+
+        <label htmlFor="Password">Password</label>
+        <input
+          id="Password"
+          name="password"
+          type="password"
+          onChange={formik.handleChange}
+          value={formik.values.password} 
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.password && formik.errors.password?<p style={{color:"red"}}>{formik.errors.password}</p>:null}
+
+        <button type="submit ">submit</button>
+      </form>
+    </>
+  );
+}
+
+export default App;
