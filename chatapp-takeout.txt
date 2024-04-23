@@ -1,0 +1,109 @@
+
+
+out of client and server folder (root):
+create .env in the root
+
+PORT=5000
+MONGO_DB_URI=mongodb+srv://ChatApp:Password@cluster0.dkftpcp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=jkhbnhhuihok
+NODE_ENV=development
+
+import dotenv from 'dotenv'
+dotenv.config()
+now can use : process.env.PORT
+
+
+random avatar url:
+https://avatar-placeholder.iran.liara.run/	(website alot more)
+https://avatar.iran.liara.run/public	(random profile)
+https://avatar.iran.liara.run/public/boy	(random boy)
+
+
+
+//LOGIN
+generateTokenAndSetCookie=( userId, res )=>{
+	const token = jwt.sign({userId}, process.env.JWT_SECRET, {
+		expiresIn:'1d'
+	})	
+	res.cookie('token',token,{
+		httpOnly:true,
+		maxAge:15*24*60*60*1000,
+		sameSide:'strict',
+		secure:process.env.NODE_ENV !== 'Dev'
+	});
+};
+//LOGOUT res.cookie('token', "",{ maxAge:0 });
+
+
+
+// daisyUI	
+for custom UI components
+
+
+// tailwindcss glassmorphism 
+for opacity blur related div
+
+	
+//EXTENSION
+tailwind css intellisense : hover class get its css
+
+
+
+// id -> myId
+  const { id: myId}= req.params;	
+
+
+
+//reload vs-code 
+  ctrl+shift+p
+
+
+
+await user.save();
+await message.save();
+await Promise.all( [ user.save(), meaasge.save()] );	// parellel processing recommended over above
+
+
+
+vite.config
+in defineConfig method
+server:{
+	port:3000,	// change server port
+	proxy:{		// cors
+		'api/':{target:'https://localhost:5000'}
+	}
+},
+
+
+react-router-dom
+// main.jsx
+<BrowserRouter>	
+	<App/>	
+</BrowserRouter>
+// App.jsx
+function App(){
+	return (
+	<Routes>	
+		<Route path='/' element= {<Home/>} />	
+		<Route path='/login' element= {<Login/>} />	
+	</Routes>
+ 	)
+}
+
+
+// .eslintrc.cjs
+error: props validation something
+soln:   go to .eslintrc file	
+	rules:{...
+		"react/prop-types":"off",
+	},
+ 
+
+// scroll bottom chats
+create lastRef pass in the Arr.map's <div/>
+(useEffect,[Arr]) > (setTimeOut,100)) > 
+lastRef.current?.scrollIntoView({ behavior:'smooth'});
+
+
+
+
